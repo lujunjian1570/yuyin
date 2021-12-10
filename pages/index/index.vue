@@ -51,7 +51,7 @@
 				<image :src="bgImg"></image>
 			</view>
 			<view class="cur-img">
-				<image :src="params.url"></image>
+				<image mode="aspectFill" :src="params.url"></image>
 			</view>
 			<view class="cur-title">
 				{{params.title}}
@@ -294,8 +294,8 @@
 				padding: 0 14rpx;
 				line-height: 30rpx;
 				.back{
-					width: 18rpx;
-					height: 18rpx;
+					width: 16rpx;
+					height: 16rpx;
 				}
 				.word{
 					flex: 1;
@@ -303,15 +303,17 @@
 					text-align: right;
 					font-weight: bold;
 					color: #1c1d1d;
+					letter-spacing: 4rpx;
 					&.on{
 						font-size: 12rpx;
 						color: #535554;
+						letter-spacing: 0;
 					}
 				}
 			}
 			.list{
 				position: relative;
-				height: calc(100% - 84rpx);
+				height: calc(100% - 80rpx);
 				width: 100%;
 				padding: 0 10rpx;
 				.scroll{
@@ -345,8 +347,8 @@
 							left: -2rpx;
 							width: 100%;
 							height: 60rpx;
-							border: 2px solid #ff0101;
-							border-radius: 8rpx;
+							border: 2rpx solid #ff0101;
+							border-radius: 10rpx;
 						}
 					}
 					.li:first-child{
@@ -371,7 +373,7 @@
 			}
 			.left-info{
 				display: flex;
-				margin-top: 10rpx;
+				margin-top: 5rpx;
 				image{
 					width: 40rpx;
 					height: 41rpx;
@@ -384,7 +386,7 @@
 					font-size: 8rpx;
 				}
 				.info view:last-child{
-					margin-top: 3rpx;
+					margin-top: 2rpx;
 				}
 			}
 		}
@@ -395,6 +397,7 @@
 			height: 100%;
 			margin: 0 10rpx;
 			flex-direction: column;
+			background-color: #fff;
 			.bg{
 				width: 100%;
 				height: 100%;
@@ -406,8 +409,8 @@
 			}
 			.cur-img{
 				position: absolute;
-				top: 0;
-				left: 0;
+				top: 10%;
+				left: 10%;
 				width: 80%;
 				height: 80%;
 				background: #555555;

@@ -243,6 +243,16 @@
 				}
 			})
 			
+			wx.cloud.callFunction({
+				name: 'getList',
+				// data: {
+				// 	"content": this.contents.join()
+				// }
+			}).then(res => {
+				console.log(res.result)
+				
+			})
+			
 			this.dataList[0].list = this.ajaxList
 			this.getDescBox()
 			this.$nextTick(() => {

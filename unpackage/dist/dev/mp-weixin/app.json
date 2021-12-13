@@ -1,0 +1,14 @@
+{
+    "pages": [
+        "pages/index/index"
+    ],
+    "subPackages": [],
+    "window": {
+        "navigationBarTextStyle": "black",
+        "navigationBarTitleText": "御印浮雕肌理画",
+        "navigationBarBackgroundColor": "#FFFFFF",
+        "backgroundColor": "#FFFFFF"
+    },
+    "usingComponents": {},
+    "sitemapLocation": "sitemap.json"
+}

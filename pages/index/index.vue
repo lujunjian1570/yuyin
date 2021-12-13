@@ -46,15 +46,30 @@
 				</view>
 			</view>
 		</view>
-		<view class="center">
-			<view class="bg">
-				<image :src="bgImg"></image>
-			</view>
-			<view class="cur-img">
+		<view class="center" ref="center">
+			<view v-if="action==='big'" class="bg" :style="{width:cWidth+'rpx',height:cHeight+'rpx'}">
 				<image mode="aspectFill" :src="params.url"></image>
+				<view class="cur-title">
+					{{params.title}}
+				</view>
 			</view>
-			<view class="cur-title">
-				{{params.title}}
+			<view v-if="action==='keting'" class="view-keting" :style="{width:cWidth+'rpx',height:cHeight+'rpx'}">
+				<image :src="bgImg"></image>
+				<image 
+					mode="aspectFill" 
+					src="../../static/bg-big.png" 
+					class="cur-bg"
+					:style="{top:cHeight*0.10+'rpx',left:cWidth*0.5-cWidth*0.24/2-5-cWidth*0.08+'rpx',width:cWidth*0.24+'rpx',height:cWidth*0.24*0.8+'rpx'}"
+				></image>
+				<image
+					mode="aspectFill" 
+					:src="params.url" 
+					class="cur-img"
+					:style="{top:cHeight*0.10+cHeight*0.02+'rpx',left:cWidth*0.5-cWidth*0.24/2-5-cWidth*0.08+cWidth*0.0204+'rpx',width:cWidth*0.24-cWidth*0.042+'rpx',height:cWidth*0.24*0.8-cWidth*0.028+'rpx'}"
+				></image>
+				<view class="cur-title">
+					{{params.title}}
+				</view>
 			</view>
 		</view>
 		<view class="right">
@@ -79,6 +94,7 @@
 					scrollTop: 0
 				},
 				bgImg:'/static/bg-big.png',
+				action:'big',
 				actionList:[
 					{
 						type:'big',
@@ -89,7 +105,7 @@
 					{
 						type:'keting',
 						url:"/static/keting.jpg",
-						bg:'/static/keting.jpg',
+						bg:'/static/bg-keting.jpeg',
 						selected:false,
 					},
 					{
@@ -102,73 +118,73 @@
 				ajaxList:[
 					{
 						title:'H系列-生化机甲风',
-						url:'/static/img1.jpeg',
+						url:'/static/bg-keting.jpeg',
 						children:[
 							{
 								title:'title1-1',
-								url:'/static/img1.jpeg',
+								url:'/static/bg-keting.jpeg',
 							},
 							{
 								title:'title1-2',
-								url:'/static/img1.jpeg',
+								url:'/static/bg-keting.jpeg',
 							},
 						],
 					},
 					{
 						title:'title2',
-						url:'/static/img1.jpeg',
+						url:'/static/bg-keting.jpeg',
 						children:[
 							{
 								title:'title2-1',
-								url:'/static/img1.jpeg',
+								url:'/static/bg-keting.jpeg',
 							},
 							{
 								title:'title2-2',
-								url:'/static/img1.jpeg',
+								url:'/static/bg-keting.jpeg',
 							},
 						],
 					},
 					{
 						title:'title3',
-						url:'/static/img1.jpeg',
+						url:'/static/bg-keting.jpeg',
 						children:[
 							{
 								title:'title3-1',
-								url:'/static/img1.jpeg',
+								url:'/static/bg-keting.jpeg',
 							},
 							{
 								title:'title3-2',
-								url:'/static/img1.jpeg',
+								url:'/static/bg-keting.jpeg',
 							},
 							{
 								title:'title3-3',
-								url:'/static/img1.jpeg',
+								url:'/static/bg-keting.jpeg',
 							},
 							{
 								title:'title3-4',
-								url:'/static/img1.jpeg',
+								url:'/static/bg-keting.jpeg',
 							},
 						],
 					},
 					{
 						title:'title4',
-						url:'/static/img1.jpeg',
+						url:'/static/bg-keting.jpeg',
 						children:[
 							{
 								title:'title4-1',
-								url:'/static/img1.jpeg',
+								url:'/static/bg-keting.jpeg',
 							},
 							{
 								title:'title4-2',
-								url:'/static/img1.jpeg',
+								url:'/static/bg-keting.jpeg',
 							},
 							{
 								title:'title4-3',
-								url:'/static/img1.jpeg',
+								url:'/static/bg-keting.jpeg',
 							},
 							{
 								title:'title4-4',
-								url:'/static/img1.jpeg',
+								url:'/static/bg-keting.jpeg',
 							},
 						],
 					},
@@ -182,6 +198,8 @@
 				list:[],//当前显示的数据列表
 				params:{},
 				categoryInfo:{},
+				cWidth:0,
+				cHeight:0,
 			}
 		},
 		watch:{
@@ -226,8 +244,30 @@
 			})
 			
 			this.dataList[0].list = this.ajaxList
+			this.getDescBox()
+			this.$nextTick(() => {
+				this.$refs.center
+			})
 		},
 		methods: {
+			getDescBox() { 
+			  uni.createSelectorQuery().in(this).select('.center').boundingClientRect(result => { 
+			   if (result) { 
+			     console.log('==========',result) 
+					 let w = result.width
+					 let h = result.height - 30
+					 this.cHeight = h
+					 if(w*0.77>h){
+						 this.cWidth = h/0.77
+					 }
+					 if(w*0.77<=h){
+						 this.cWidth = w
+					 }
+			   }else { 
+			     this.getDescBox(); 
+			 } 
+			  }).exec(); 
+			},
 			liChange(item){
 				if(item.children){
 					this.dataList.push({
@@ -252,6 +292,7 @@
 			},
 			handleChange(item){
 				this.bgImg = item.bg
+				this.action = item.type
 				let list = this.actionList
 				list.map(a=>{
 					a.selected = false
@@ -393,30 +434,35 @@
 		.center{
 			display: flex;
 			flex: 1;
+			align-items: center;
+			justify-content: center;
 			position: relative;
 			height: 100%;
 			margin: 0 10rpx;
-			flex-direction: column;
-			background-color: #fff;
 			.bg{
+				position: absolute;
 				width: 100%;
 				height: 100%;
-				background: #C8C7CC;
 				image{
 					width: 100%;
 					height: 100%;
 				}
 			}
-			.cur-img{
-				position: absolute;
-				top: 10%;
-				left: 10%;
-				width: 80%;
-				height: 80%;
-				background: #555555;
+			.view-keting{
+				position: relative;
 				image{
 					width: 100%;
 					height: 100%;
+				}
+				.cur-bg{
+					position: absolute;
+					top: 10%;
+					left: 29%;
+				}
+				.cur-img{
+					position: absolute;
+					top: 10%;
+					left: 29%;
 				}
 			}
 			.cur-title{

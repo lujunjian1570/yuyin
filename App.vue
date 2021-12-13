@@ -30,6 +30,9 @@
 	page{
 		height: 100%;
 	}
+	image{
+		will-change: transform
+	}
 	.line{
 	  overflow: hidden;
 	  text-overflow: ellipsis;

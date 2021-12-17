@@ -374,7 +374,20 @@
 				}
 			}
 		},
+		onShareAppMessage(res) {//发送给朋友
+			return {
+				title: '御印浮雕肌理画',
+				path: '/pages/index/index'
+			}
+		},
+		onShareTimeline(res) { //分享到朋友圈
+			return {
+				title: '御印浮雕肌理画',
+				path: '/pages/index/index'
+			}
+		},
 		onLoad() {
+			// uni.showShareMenu()
 			// console.log(uni.getSystemInfoSync().screenWidth)
 			
 			// //访问微信云数据库

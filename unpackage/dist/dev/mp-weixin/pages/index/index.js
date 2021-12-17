@@ -543,6 +543,14 @@ var _default =
     this.getDescBox();
   },
   methods: {
+    //查看大图
+    openBigImg: function openBigImg(url) {
+      return;
+      var imgsArray = [url];
+      uni.previewImage({
+        urls: imgsArray });
+
+    },
     //图片加载
     imgLoad: function imgLoad(e) {
       var w = e.detail.width;

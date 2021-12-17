@@ -223,10 +223,161 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
     return {
+      containerLeft: 0,
+      containerTop: 0,
+      containerHeight: 0,
+      containerWidth: 0,
+      isShow: true,
       scrollTop: 0,
       old: {
         scrollTop: 0 },
@@ -249,84 +400,11 @@ var _default =
       {
         type: 'xuanguan',
         url: "/static/xuanguan.jpg",
-        bg: '/static/xuanguan.jpg',
+        bg: '/static/bg-xuanguan.jpg',
         selected: false }],
 
 
-      ajaxList: [
-      {
-        title: 'H系列-生化机甲风',
-        url: '/static/bg-keting.jpeg',
-        children: [
-        {
-          title: 'title1-1',
-          url: '/static/bg-keting.jpeg' },
-
-        {
-          title: 'title1-2',
-          url: '/static/bg-keting.jpeg' }] },
-
-
-
-      {
-        title: 'title2',
-        url: '/static/bg-keting.jpeg',
-        children: [
-        {
-          title: 'title2-1',
-          url: '/static/bg-keting.jpeg' },
-
-        {
-          title: 'title2-2',
-          url: '/static/bg-keting.jpeg' }] },
-
-
-
-      {
-        title: 'title3',
-        url: '/static/bg-keting.jpeg',
-        children: [
-        {
-          title: 'title3-1',
-          url: '/static/bg-keting.jpeg' },
-
-        {
-          title: 'title3-2',
-          url: '/static/bg-keting.jpeg' },
-
-        {
-          title: 'title3-3',
-          url: '/static/bg-keting.jpeg' },
-
-        {
-          title: 'title3-4',
-          url: '/static/bg-keting.jpeg' }] },
-
-
-
-      {
-        title: 'title4',
-        url: '/static/bg-keting.jpeg',
-        children: [
-        {
-          title: 'title4-1',
-          url: '/static/bg-keting.jpeg' },
-
-        {
-          title: 'title4-2',
-          url: '/static/bg-keting.jpeg' },
-
-        {
-          title: 'title4-3',
-          url: '/static/bg-keting.jpeg' },
-
-        {
-          title: 'title4-4',
-          url: '/static/bg-keting.jpeg' }] }],
-
-
-
-
+      ajaxList: [],
       dataList: [
       {
         title: '素材选择',
@@ -334,10 +412,78 @@ var _default =
 
 
       list: [], //当前显示的数据列表
-      params: {},
-      categoryInfo: {},
+      params: {
+        title: '' },
+
+      categoryInfo: {
+        title: '' },
+
       cWidth: 0,
-      cHeight: 0 };
+      cHeight: 0,
+      ktPosition: {
+        width: 0,
+        height: 0,
+        left: 0,
+        top: 0 },
+
+      xgPosition: {
+        width: 0,
+        height: 0,
+        left: 0,
+        top: 0 },
+
+      kuangPosition: {
+        top: {
+          width: 0,
+          height: 0,
+          left: 0,
+          top: 0 },
+
+        bottom: {
+          width: 0,
+          height: 0,
+          left: 0,
+          top: 0 },
+
+        left: {
+          width: 0,
+          height: 0,
+          left: 0,
+          top: 0 },
+
+        right: {
+          width: 0,
+          height: 0,
+          left: 0,
+          top: 0 } },
+
+
+      kXgPosition: {
+        top: {
+          width: 0,
+          height: 0,
+          left: 0,
+          top: 0 },
+
+        bottom: {
+          width: 0,
+          height: 0,
+          left: 0,
+          top: 0 },
+
+        left: {
+          width: 0,
+          height: 0,
+          left: 0,
+          top: 0 },
+
+        right: {
+          width: 0,
+          height: 0,
+          left: 0,
+          top: 0 } } };
+
+
 
   },
   watch: {
@@ -346,6 +492,9 @@ var _default =
       handler: function handler(newval) {var _this = this;
         var lastList = newval[newval.length - 1];
         this.list = JSON.parse(JSON.stringify(lastList.list));
+        if (this.list.length === 0) {
+          return;
+        }
         this.params = {
           title: this.list[0].children ? this.list[0].children[0].title : this.list[0].title,
           url: this.list[0].children ? this.list[0].children[0].url : this.list[0].url };
@@ -365,45 +514,77 @@ var _default =
 
   onLoad: function onLoad() {var _this2 = this;
     // console.log(uni.getSystemInfoSync().screenWidth)
-    //访问微信云数据库
-    //1.调用获取默认环境的数据库的引用：
-    var db = wx.cloud.database({
-      evn: 'movie-test-qiqjo' });
 
-    //2.调用 get 方法获取通知的数据：
-    db.collection('comment').get({
-      success: function success(res) {
-        console.log(res);
-        /* uni.showToast({
-                          	title:res.errMsg,
-                          	icon:'none'
-                          }) */
-      } });
-
+    // //访问微信云数据库
+    // //1.调用获取默认环境的数据库的引用：
+    // let db = wx.cloud.database({
+    // 	evn: 'movie-test-qiqjo'
+    // })
+    // //2.调用 get 方法获取通知的数据：
+    // db.collection('filelist').get({
+    // 	success: function(res) {
+    // 		console.log(111,res)
+    // 		/* uni.showToast({
+    // 			title:res.errMsg,
+    // 			icon:'none'
+    // 		}) */
+    // 	}
+    // })
 
     wx.cloud.callFunction({
       name: 'getList'
       // data: {
-      // 	"content": this.contents.join()
+      // 	"content": 1
       // }
     }).then(function (res) {
-      console.log(res.result);
-
+      _this2.dataList[0].list = res.result.ajaxList;
+      // this.dataList[0].list = [res.result.ajaxList[0]]
     });
-
-    this.dataList[0].list = this.ajaxList;
     this.getDescBox();
-    this.$nextTick(function () {
-      _this2.$refs.center;
-    });
   },
   methods: {
+    //图片加载
+    imgLoad: function imgLoad(e) {
+      var w = e.detail.width;
+      var h = e.detail.height;
+      if (this.action === 'xuanguan') {
+        this.containerHeight = this.xgPosition.width * h / w;
+        if (this.containerHeight > this.xgPosition.height) {
+          this.containerHeight = this.xgPosition.height;
+          this.containerWidth = this.xgPosition.height * w / h;
+          this.containerLeft = (this.xgPosition.width - this.containerWidth) / 2;
+          this.containerTop = 0;
+        } else {
+          this.containerWidth = 0;
+          this.containerLeft = 0;
+          this.containerTop = (this.xgPosition.height - this.containerHeight) / 2;
+        }
+      } else if (this.action === 'keting') {
+        this.containerHeight = this.ktPosition.width * h / w;
+        if (this.containerHeight > this.ktPosition.height) {
+          this.containerHeight = this.ktPosition.height;
+          this.containerWidth = this.ktPosition.height * w / h;
+          this.containerLeft = (this.ktPosition.width - this.containerWidth) / 2;
+          this.containerTop = 0;
+        } else {
+          this.containerWidth = 0;
+          this.containerLeft = 0;
+          this.containerTop = (this.ktPosition.height - this.containerHeight) / 2;
+        }
+      }
+      this.$forceUpdate();
+    },
+    getNewUrl: function getNewUrl(url) {//url:	cloud://movie-test-qiqjo.6d6f-movie-test-qiqjo-1302443827/bg-keting.jpeg
+      var index = url.lastIndexOf("/");
+      var str = url.substr(index + 1);
+      return 'https://6d6f-movie-test-qiqjo-1302443827.tcb.qcloud.la/' + str + '?imageMogr2/thumbnail/400x400';
+    },
     getDescBox: function getDescBox() {var _this3 = this;
       uni.createSelectorQuery().in(this).select('.center').boundingClientRect(function (result) {
         if (result) {
-          console.log('==========', result);
+          // console.log('==========',result) 
           var w = result.width;
-          var h = result.height - 30;
+          var h = result.height - 80;
           _this3.cHeight = h;
           if (w * 0.77 > h) {
             _this3.cWidth = h / 0.77;
@@ -411,6 +592,78 @@ var _default =
           if (w * 0.77 <= h) {
             _this3.cWidth = w;
           }
+          if (_this3.action === 'xuanguan') {
+            _this3.cWidth = _this3.cHeight;
+          }
+          //客厅画框内的图片信息
+          _this3.ktPosition = {
+            width: _this3.cWidth * 0.5 - _this3.cWidth * 0.042,
+            height: _this3.cWidth * 0.5 * 0.4 - _this3.cWidth * 0.02,
+            left: _this3.cWidth * 0.5 - _this3.cWidth * 0.45 / 2 - 5 - _this3.cWidth * 0.08,
+            top: _this3.cHeight * 0.09 + _this3.cHeight * 0.013 };
+
+          //客厅画框的信息
+          _this3.kuangPosition = {
+            top: {
+              width: _this3.cWidth * 0.02 * 2 + _this3.ktPosition.width,
+              height: _this3.cWidth * 0.038,
+              left: _this3.cWidth * 0.5 - _this3.cWidth * 0.45 / 2 - 5 - _this3.cWidth * 0.08 - _this3.cWidth * 0.02,
+              top: _this3.ktPosition.top - _this3.cWidth * 0.038 },
+
+            bottom: {
+              width: _this3.cWidth * 0.02 * 2 + _this3.ktPosition.width,
+              height: _this3.cWidth * 0.039,
+              left: _this3.cWidth * 0.5 - _this3.cWidth * 0.45 / 2 - 5 - _this3.cWidth * 0.08 - _this3.cWidth * 0.02,
+              top: _this3.ktPosition.height + _this3.ktPosition.top },
+
+            left: {
+              width: _this3.cWidth * 0.03,
+              height: _this3.ktPosition.height,
+              left: _this3.cWidth * 0.5 - _this3.cWidth * 0.45 / 2 - 5 - _this3.cWidth * 0.08 - _this3.cWidth * 0.02,
+              top: _this3.ktPosition.top },
+
+            right: {
+              width: _this3.cWidth * 0.03,
+              height: _this3.ktPosition.height,
+              left: _this3.ktPosition.width + _this3.ktPosition.left - _this3.cWidth * 0.03 / 2,
+              top: _this3.ktPosition.top } };
+
+
+
+          //玄关画框内的图片信息
+          _this3.xgPosition = {
+            width: _this3.cWidth * 0.5,
+            height: _this3.cWidth * 0.8,
+            left: _this3.cWidth * 0.25,
+            top: _this3.cHeight * 0.08 };
+
+          //玄关画框的信息
+          _this3.kXgPosition = {
+            top: {
+              width: _this3.xgPosition.width + _this3.cWidth * 42 / 1000 * 2,
+              height: _this3.cHeight * 42 / 864,
+              left: _this3.xgPosition.left - _this3.cWidth * 42 / 1000,
+              top: _this3.xgPosition.top - _this3.cWidth * 42 / 864 },
+
+            bottom: {
+              width: _this3.cWidth * 42 / 1000 + _this3.xgPosition.width + _this3.cWidth * 43 / 1000,
+              height: _this3.cWidth * 42 / 864,
+              left: _this3.xgPosition.left - _this3.cWidth * 42 / 1000,
+              top: _this3.xgPosition.height + _this3.cWidth * 42 / 864 },
+
+            left: {
+              width: _this3.cWidth * 42 / 1000 * 780 / 1000,
+              height: '100%',
+              left: _this3.xgPosition.left - _this3.cWidth * 42 / 1000,
+              top: _this3.xgPosition.top },
+
+            right: {
+              width: _this3.cWidth * 43 / 1000 * 780 / 1000,
+              height: '100%',
+              left: _this3.ktPosition.width + _this3.ktPosition.left - _this3.cWidth * 0.03 / 2,
+              top: _this3.xgPosition.top } };
+
+
         } else {
           _this3.getDescBox();
         }
@@ -448,6 +701,7 @@ var _default =
           a.selected = true;
         }
       });
+      this.getDescBox();
     },
     scroll: function scroll(e) {
       this.old.scrollTop = e.detail.scrollTop;
